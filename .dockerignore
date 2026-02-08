@@ -1,0 +1,15 @@
+target/
+.mvn/
+.idea/
+.vscode/
+*.iml
+.DS_Store
+*.log
+.git/
+.gitignore
+README.md
+HELP.md
+document.md
+endpoint_all.md
+RENDER_DEPLOY.md
+
