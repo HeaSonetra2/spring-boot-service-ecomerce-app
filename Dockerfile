@@ -4,12 +4,13 @@ WORKDIR /app
 
 COPY . .
 
-# ⭐ Add this line - chmod +x mvnw = អនុញ្ញាតឲ្យ run file
-RUN chmod +x mvnw
+# Install Maven inside the container
+RUN apt-get update && apt-get install -y maven
 
-RUN ./mvnw clean package -DskipTests
+# Build the Spring Boot app with Maven
+RUN mvn clean package -DskipTests
 
 EXPOSE 8080
 
-CMD java -jar target/*.jar
+CMD ["java","-jar","target/*.jar"]
 
