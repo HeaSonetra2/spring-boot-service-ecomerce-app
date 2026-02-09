@@ -9,6 +9,7 @@ import com.example.demo.dto.ForgotPasswordRequest;
 import com.example.demo.dto.LoginRequest;
 import com.example.demo.dto.RegisterRequest;
 import com.example.demo.entity.User;
+import com.example.demo.exception.ApiException;
 import com.example.demo.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -29,7 +30,9 @@ public class AuthService {
         System.out.println("LOGIN raw password = " + request.getPassword());
 
         User user = userRepository.findByPhoneNumber(request.getPhoneNumber())
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new ApiException(
+                        HttpStatus.UNAUTHORIZED,
+                        "User not found"));
 
         System.out.println("DB password = " + user.getPassword());
 
@@ -40,7 +43,9 @@ public class AuthService {
         System.out.println("PASSWORD MATCH = " + match);
 
         if (!match) {
-            throw new RuntimeException("Invalid phone number or password");
+            throw new ApiException(
+                    HttpStatus.UNAUTHORIZED,
+                    "Invalid phone number or password");
         }
 
         String token = jwtService.generateToken(user.getPhoneNumber());
