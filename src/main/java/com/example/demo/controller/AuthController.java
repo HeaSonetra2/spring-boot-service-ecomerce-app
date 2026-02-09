@@ -46,15 +46,16 @@ public class AuthController {
 
     // SEND REGISTER OTP
     @PostMapping("/register/send-otp")
-    public ResponseEntity<ApiResponse<Void>> sendRegisterOtp(
+    public ResponseEntity<ApiResponse<String>> sendRegisterOtp(
             @RequestBody VerifyOtpRequest request) {
 
-        otpService.sendOtp(request.getPhoneNumber());
+        String otp = otpService.sendOtp(request.getPhoneNumber());
 
         return ResponseEntity.ok(
-                ApiResponse.<Void>builder()
+                ApiResponse.<String>builder()
                         .success(true)
                         .message("OTP sent successfully")
+                        .data(otp)
                         .build());
     }
 
@@ -90,15 +91,16 @@ public class AuthController {
 
     // SEND FORGOT PASSWORD OTP
     @PostMapping("/forgot-password/send-otp")
-    public ResponseEntity<ApiResponse<Void>> sendForgotOtp(
+    public ResponseEntity<ApiResponse<String>> sendForgotOtp(
             @RequestBody VerifyOtpRequest request) {
 
-        otpService.sendOtp(request.getPhoneNumber());
+        String otp = otpService.sendOtp(request.getPhoneNumber());
 
         return ResponseEntity.ok(
-                ApiResponse.<Void>builder()
+                ApiResponse.<String>builder()
                         .success(true)
                         .message("OTP sent successfully")
+                        .data(otp)
                         .build());
     }
 

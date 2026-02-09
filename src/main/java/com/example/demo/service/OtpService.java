@@ -16,7 +16,7 @@ public class OtpService {
 
     private final OtpRepository otpRepository;
 
-    public void sendOtp(String phoneNumber) {
+    public String sendOtp(String phoneNumber) {
         // 🔥 important
         otpRepository.deleteByPhoneNumber(phoneNumber);
 
@@ -30,6 +30,8 @@ public class OtpService {
         otpRepository.save(otp);
 
         System.out.println("OTP for " + phoneNumber + ": " + code);
+
+        return code;
     }
 
     public void validateOtp(String phoneNumber, String code) {
